@@ -18,13 +18,20 @@ load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI()
-# Allow all origins (adjust this in production as needed)
+
+# Allow specific frontend origins (or use "*" to allow all)
+origins = [
+    "http://127.0.0.1:5500",  # Your local frontend
+    "http://localhost:5500",  # In case you use localhost
+    "https://nomadictrailz.com/",  # Add your deployed frontend URL
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins, you can restrict this to specific domains
+    allow_origins=origins,  # Allow only these origins
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
 # Set API keys
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
@@ -33,8 +40,6 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not PINECONE_API_KEY or not OPENAI_API_KEY:
     raise ValueError("Missing required environment variables")
 
-# Initialize FastAPI app
-app = FastAPI()
 
 # Initialize OpenAI and Pinecone clients
 client = OpenAI(api_key=OPENAI_API_KEY)
