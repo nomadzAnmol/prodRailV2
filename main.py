@@ -1,5 +1,6 @@
 import os
 import json
+import uvicorn
 import re
 import requests
 from fastapi import FastAPI, HTTPException
@@ -183,3 +184,5 @@ async def get_deals(request: QueryRequest):
 def health_check():
     return {"status": "API is running"}
 
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=5000)
