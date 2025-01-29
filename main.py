@@ -10,10 +10,22 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from pinecone import Pinecone
 from playwright.sync_api import sync_playwright
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables (for local dev)
 load_dotenv()
 
+# Initialize FastAPI app
+app = FastAPI()
+# Allow all origins (adjust this in production as needed)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins, you can restrict this to specific domains
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 # Set API keys
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
