@@ -23,7 +23,7 @@ app = FastAPI()
 origins = [
     "http://127.0.0.1:5500",  # Your local frontend
     "http://localhost:5500",  # In case you use localhost
-    "https://nomadictrailz.com/",  # Add your deployed frontend URL
+    "https://nomadictrailz.com",  # Add your deployed frontend URL
 ]
 
 app.add_middleware(
